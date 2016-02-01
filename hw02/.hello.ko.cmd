@@ -1,0 +1,1 @@
+cmd_/home/student/os/os/hw02/hello.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.13.0-45-generic/scripts/module-common.lds --build-id  -o /home/student/os/os/hw02/hello.ko /home/student/os/os/hw02/hello.o /home/student/os/os/hw02/hello.mod.o
