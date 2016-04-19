@@ -118,8 +118,10 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
 	
   /* YOUR CODE HERE */
     printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
+    /*
     flag = 1;
     wake_up_interruptible(&wq);
+     */
     return count;
   /* END YOUR CODE */
 	
@@ -141,6 +143,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Modify dev with wait quque
     // __user is the input
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
+    /*
     int input;
     input = 1;
     int timeout;
@@ -162,6 +165,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     } else {
         return retval / HZ;
     }
+     */
   /* END YOUR CODE */
     
 	
