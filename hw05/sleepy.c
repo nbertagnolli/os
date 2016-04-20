@@ -33,6 +33,8 @@
 #include <linux/param.h>  // Holds the HZ
 
 #include <asm/uaccess.h>
+#include <linux/proc_fs.h>
+
 
 #include "sleepy.h"
 
@@ -152,7 +154,16 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     //int input;
     //input = 1;
     //int timeout;
-    printk(KERN_DEBUG "WRITE VAL %d\n", *buff);
+    char *user_input;
+    int my_data = 20;
+    user_input = (char *) malloc(4);
+    if (copy_from_user(user_input, buf, 4)) {
+        free(user_input);
+        return -EFAULT;
+    }
+    sscanf(user_input, "%d", &my_data);
+    printk(KERN_DEBUG "WRITE VAL %d\n", my_data);
+    free(user_input);
     /*
     if (atoi(buff) > 0) {
         // PUT TO SLEEP
