@@ -35,7 +35,6 @@
 
 #include <asm/uaccess.h>
 #include <linux/proc_fs.h>
-#include <linux/vmalloc.h>
 
 
 #include "sleepy.h"
@@ -192,8 +191,6 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
 	     loff_t *f_pos)
 {
   // declared variables
-  char *user_input;
-  int my_data;
   int id;
   int timeout;
   unsigned int seconds;
@@ -214,7 +211,6 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Get user input and convert it to a 32 bit integer
     seconds = *((unsigned int *) buf);
     printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
-    vfree(user_input);
     
     // calculate timeout
     //msecs_to_jiffies
