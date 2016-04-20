@@ -155,7 +155,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Modify dev with wait quque
     // __user is the input
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
-    //printk(KERN_DEBUG "Device ID %d\n", dev->id);
+    printk(KERN_DEBUG "Device ID %d\n", dev->id);
     
     // Get user input and convert it to a 32 bit integer
     user_input = (char *) vmalloc(4);
