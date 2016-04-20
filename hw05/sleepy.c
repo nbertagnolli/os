@@ -146,7 +146,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
             wake_up_interruptible(&wq0);
             break;
         case 1:
-            wake_up_interruptible(&qw1);
+            wake_up_interruptible(&wq1);
             break;
         case 2:
             wake_up_interruptible(&wq2);
@@ -155,7 +155,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
             wake_up_interruptible(&wq3);
             break;
         case 4:
-            wake_up_interruptible(&w4);
+            wake_up_interruptible(&wq4);
             break;
         case 5:
             wake_up_interruptible(&wq5);
@@ -213,7 +213,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     
     // Get user input and convert it to a 32 bit integer
     seconds = *((unsigned int *) buf);
-    printk(KERN_DEBUG "WRITE VAL %d\n", secs);
+    printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
     vfree(user_input);
     
     // calculate timeout
