@@ -48,7 +48,8 @@ MODULE_LICENSE("GPL");
 // Note to grader.  Most of this code is copied from chapter 6/7 of linux
 // Device Drivers suggested in the assignment.
 
-static DECLARE_WAIT_QUEUE_HEAD(wq);
+static DECLARE_WAIT_QUEUE_HEAD(wq0);
+static DECLARE_WAIT_QUEUE_HEAD(wq1);
 static DECLARE_WAIT_QUEUE_HEAD(wq2);
 static DECLARE_WAIT_QUEUE_HEAD(wq3);
 static DECLARE_WAIT_QUEUE_HEAD(wq4);
@@ -57,7 +58,6 @@ static DECLARE_WAIT_QUEUE_HEAD(wq6);
 static DECLARE_WAIT_QUEUE_HEAD(wq7);
 static DECLARE_WAIT_QUEUE_HEAD(wq8);
 static DECLARE_WAIT_QUEUE_HEAD(wq9);
-static DECLARE_WAIT_QUEUE_HEAD(wq10);
 
 //static int flag = 0;
 // Need separate wait queues
@@ -128,24 +128,34 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
     switch (dev->id) {
         case 0:
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
+            wake_up_interruptible(&wq0);
             break;
         case 1:
+            wake_up_interruptible(&w1);
             break;
         case 2:
+            wake_up_interruptible(&wq2);
             break;
         case 3:
+            wake_up_interruptible(&wq3);
             break;
         case 4:
+            wake_up_interruptible(&w4);
             break;
         case 5:
+            wake_up_interruptible(&wq5);
             break;
         case 6:
+            wake_up_interruptible(&wq6);
             break;
         case 7:
+            wake_up_interruptible(&wq7);
             break;
         case 8:
+            wake_up_interruptible(&wq8);
             break;
         case 9:
+            wake_up_interruptible(&wq9);
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
     }
@@ -169,7 +179,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   char *user_input;
   int my_data;
   int id;
-  //int timeout;
+  int timeout;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
@@ -195,28 +205,41 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     printk(KERN_DEBUG "WRITE VAL %d\n", my_data);
     vfree(user_input);
     
+    // calculate timeout
+    timeout = 10;
+    
     // Check which device is being written to and print out device id
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
+            retval = wait_event_interruptible_timeout(wq0, 0, timeout);
             break;
         case 1:
+            retval = wait_event_interruptible_timeout(wq1, 0, timeout);
             break;
         case 2:
+            retval = wait_event_interruptible_timeout(wq2, 0, timeout);
             break;
         case 3:
+            retval = wait_event_interruptible_timeout(wq3, 0, timeout);
             break;
         case 4:
+            retval = wait_event_interruptible_timeout(wq4, 0, timeout);
             break;
         case 5:
+            retval = wait_event_interruptible_timeout(wq5, 0, timeout);
             break;
         case 6:
+            retval = wait_event_interruptible_timeout(wq6, 0, timeout);
             break;
         case 7:
+            retval = wait_event_interruptible_timeout(wq7, 0, timeout);
             break;
         case 8:
+            retval = wait_event_interruptible_timeout(wq8, 0, timeout);
             break;
         case 9:
+            retval = wait_event_interruptible_timeout(wq9, 0, timeout);
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
