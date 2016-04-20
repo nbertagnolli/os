@@ -171,7 +171,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Check which device is being written to and print out device id
     switch (dev->id) {
         case 0:
-            printk(KERN_DEBUG "HERE! %d\n", dev->id);
+            printk(KERN_DEBUG "HERE!! %d\n", dev->id);
             break;
         case 1:
             break;
@@ -190,7 +190,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
         case 8:
             break;
         case 9:
-            printk(KERN_DEBUG "HERE! %d\n", dev->id);
+            printk(KERN_DEBUG "HERE!! %d\n", dev->id);
             break;
     }
     /*
