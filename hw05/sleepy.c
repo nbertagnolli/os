@@ -31,6 +31,7 @@
 #include <linux/wait.h>   // Sleeping
 #include <linux/sched.h>  // Jiffies and timing
 #include <linux/param.h>  // Holds the HZ
+#include <linux/jiffies.h>
 
 #include <asm/uaccess.h>
 #include <linux/proc_fs.h>
@@ -125,6 +126,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
     printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
     printk(KERN_DEBUG "Writing Device ID %d\n", dev->id);
     
+    /*
     switch (dev->id) {
         case 0:
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
@@ -159,6 +161,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
     }
+     */
     //printk(KERN_DEBUG "process writes to dev id %d\n", dev.id);
     /*
     flag = 1;
@@ -180,6 +183,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   int my_data;
   int id;
   int timeout;
+  unsigned int secs;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
@@ -200,15 +204,17 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
         vfree(user_input);
         return -EFAULT;
     }
-    
+    secs = *((unsigned int *) buf);
     sscanf(user_input, "%d", &my_data);
-    printk(KERN_DEBUG "WRITE VAL %d\n", my_data);
+    printk(KERN_DEBUG "WRITE VAL %d\n", secs);
     vfree(user_input);
     
     // calculate timeout
+    //msecs_to_jiffies
     timeout = 10;
     
     // Check which device is being written to and print out device id
+    /*
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
@@ -243,6 +249,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
+     */
     /*
     if (atoi(buff) > 0) {
         // PUT TO SLEEP
