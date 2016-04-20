@@ -44,6 +44,7 @@ MODULE_LICENSE("GPL");
 /* MY CODE */
 // Note to grader.  Most of this code is copied from chapter 6/7 of linux
 // Device Drivers suggested in the assignment.
+/*
 static DECLARE_WAIT_QUEUE_HEAD(wq);
 static DECLARE_WAIT_QUEUE_HEAD(wq2);
 static DECLARE_WAIT_QUEUE_HEAD(wq3);
@@ -54,7 +55,8 @@ static DECLARE_WAIT_QUEUE_HEAD(wq7);
 static DECLARE_WAIT_QUEUE_HEAD(wq8);
 static DECLARE_WAIT_QUEUE_HEAD(wq9);
 static DECLARE_WAIT_QUEUE_HEAD(wq10);
-static int flag = 0;
+ */
+//static int flag = 0;
 // Need separate wait queues
 // How to tell what device we are on?
 // What is the input?  How to tell what is written
@@ -166,6 +168,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
         return retval / HZ;
     }
      */
+     
   /* END YOUR CODE */
     
 	
@@ -204,7 +207,9 @@ sleepy_construct_device(struct sleepy_dev *dev, int minor,
   BUG_ON(dev == NULL || class == NULL);
 
   /* Memory is to be allocated when the device is opened the first time */
-  dev->data = NULL;     
+  dev->data = NULL;
+  printk(KERN_DEBUG "module id is %d", minor);
+  //dev.id = minor;    //  Add id to each device
   mutex_init(&dev->sleepy_mutex);
     
   cdev_init(&dev->cdev, &sleepy_fops);
