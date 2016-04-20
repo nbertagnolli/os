@@ -143,7 +143,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   // declared variables
   char *user_input;
   int my_data;
-  int timeout;
+  //int timeout;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
