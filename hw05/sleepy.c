@@ -210,7 +210,8 @@ sleepy_construct_device(struct sleepy_dev *dev, int minor,
   /* Memory is to be allocated when the device is opened the first time */
   dev->data = NULL;
   printk(KERN_DEBUG "module id is %d", minor);
-  dev.id = minor;    //  Add id to each device
+  dev->id = minor;    //  Add id to each device
+  printk(KERN_DEBUG "dev id is %d", dev->id);
   mutex_init(&dev->sleepy_mutex);
     
   cdev_init(&dev->cdev, &sleepy_fops);
