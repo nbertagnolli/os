@@ -174,23 +174,23 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     switch (id) {
         case 0:
             printk(KERN_DEBUG "HERE!! %d\n", dev->id);
-            break;
+            //break;
         case 1:
-            break;
+            //break;
         case 2:
-            break;
+            //break;
         case 3:
-            break;
+            //break;
         case 4:
-            break;
+            //break;
         case 5:
-            break;
+            //break;
         case 6:
-            break;
+            //break;
         case 7:
-            break;
+            //break;
         case 8:
-            break;
+            //break;
         case 9:
             printk(KERN_DEBUG "HERE!! %d\n", dev->id);
             break;
