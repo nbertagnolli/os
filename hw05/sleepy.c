@@ -209,7 +209,8 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     printk(KERN_DEBUG "Reading Device ID %d\n", id);
     
     // Get user input and convert it to a 32 bit integer
-    seconds = *((unsigned int *) buf);
+    //seconds = *((unsigned int *) buf);
+    seconds = 10;
     printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
     
     // calculate timeout
