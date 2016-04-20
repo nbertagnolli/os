@@ -152,7 +152,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     //int input;
     //input = 1;
     //int timeout;
-    printk(KERN_DEBUG "WRITE VAL %d\n", buff);
+    printk(KERN_DEBUG "WRITE VAL %d\n", *buff);
     /*
     if (atoi(buff) > 0) {
         // PUT TO SLEEP
