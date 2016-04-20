@@ -155,8 +155,9 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Modify dev with wait quque
     // __user is the input
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Device ID %d\n", dev->id);
+    //printk(KERN_DEBUG "Device ID %d\n", dev->id);
     
+    // Get user input and convert it to a 32 bit integer
     user_input = (char *) vmalloc(4);
     if (copy_from_user(user_input, buf, 4)) {
         vfree(user_input);
@@ -166,6 +167,32 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     sscanf(user_input, "%d", &my_data);
     printk(KERN_DEBUG "WRITE VAL %d\n", my_data);
     vfree(user_input);
+    
+    // Check which device is being written to and print out device id
+    switch (dev->id) {
+        case 0:
+            printk(KERN_DEBUG "HERE! %d\n", dev->id);
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            printk(KERN_DEBUG "HERE! %d\n", dev->id);
+            break;
+    }
     /*
     if (atoi(buff) > 0) {
         // PUT TO SLEEP
