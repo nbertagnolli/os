@@ -131,7 +131,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
             wake_up_interruptible(&wq0);
             break;
         case 1:
-            wake_up_interruptible(&w1);
+            wake_up_interruptible(&qw1);
             break;
         case 2:
             wake_up_interruptible(&wq2);
