@@ -140,6 +140,10 @@ ssize_t
 sleepy_write(struct file *filp, const char __user *buf, size_t count, 
 	     loff_t *f_pos)
 {
+  // declared variables
+  char *user_input;
+  int my_data = 20;
+    
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
 	
@@ -155,8 +159,6 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     //int input;
     //input = 1;
     //int timeout;
-    char *user_input;
-    int my_data = 20;
     user_input = (char *) vmalloc(4);
     if (copy_from_user(user_input, buf, 4)) {
         vfree(user_input);
