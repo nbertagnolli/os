@@ -22,11 +22,11 @@ int main(void) {
     if (fork() == 0) {
       /* writing to device 0*/
       fd = open("/dev/sleepy0", O_RDWR);
-      assert(fd != -1);
+      //assert(fd != -1);
 
       sleep_len = 10;
       r = write(fd, &sleep_len, sizeof sleep_len);
-      assert(r >= 0);
+      //assert(r >= 0);
       close(fd);
 
       return 0;
@@ -38,18 +38,18 @@ int main(void) {
 
   /* read from device 9*/
   fd = open("/dev/sleepy9", O_RDWR);
-  assert(fd != -1);
+  //assert(fd != -1);
   r = read(fd, NULL, 0);
-  assert(r >= 0);
+  //assert(r >= 0);
   close(fd);
 
   sleep(7); /* sleep for 7 seconds*/
 
   /* now read from device 0*/
   fd = open("/dev/sleepy0", O_RDWR);
-  assert(fd != -1);
+  //assert(fd != -1);
   r = read(fd, NULL, 0);
-  assert(r >= 0);
+  //assert(r >= 0);
   close(fd);
 
   for (i = 0; i < 10; i++)
