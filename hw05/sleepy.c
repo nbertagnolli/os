@@ -44,7 +44,7 @@ MODULE_LICENSE("GPL");
 /* MY CODE */
 // Note to grader.  Most of this code is copied from chapter 6/7 of linux
 // Device Drivers suggested in the assignment.
-/*
+
 static DECLARE_WAIT_QUEUE_HEAD(wq);
 static DECLARE_WAIT_QUEUE_HEAD(wq2);
 static DECLARE_WAIT_QUEUE_HEAD(wq3);
@@ -55,7 +55,7 @@ static DECLARE_WAIT_QUEUE_HEAD(wq7);
 static DECLARE_WAIT_QUEUE_HEAD(wq8);
 static DECLARE_WAIT_QUEUE_HEAD(wq9);
 static DECLARE_WAIT_QUEUE_HEAD(wq10);
- */
+
 //static int flag = 0;
 // Need separate wait queues
 // How to tell what device we are on?
@@ -149,14 +149,15 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
     printk(KERN_DEBUG "Device ID %d\n", dev->id);
     
+    //int input;
+    //input = 1;
+    //int timeout;
+    printk(KERN_DEBUG "WRITE VAL %d\n", atoi(buff));
     /*
-    int input;
-    input = 1;
-    int timeout;
-    if (input > 0) {
+    if (atoi(buff) > 0) {
         // PUT TO SLEEP
         // seconds = jiffies + HZ
-        timeout = input * HZ;  // seconds to jiffies conversion
+        int timeout = atoi(buff) * HZ;  // seconds to jiffies conversion
         retval = wait_event_interruptible_timeout(wq, 0, timeout);
         flag = 0;
         printk(KERN_DEBUG "process %i (%s) awoken\n", current->pid, current->comm);
