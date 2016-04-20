@@ -48,7 +48,19 @@ MODULE_LICENSE("GPL");
 /* MY CODE */
 // Note to grader.  Most of this code is copied from chapter 6/7 of linux
 // Device Drivers suggested in the assignment.
+//wait_queue_head_t
+wait_queue_head_t wq0;
+wait_queue_head_t wq1;
+wait_queue_head_t wq2;
+wait_queue_head_t wq3;
+wait_queue_head_t wq4;
+wait_queue_head_t wq5;
+wait_queue_head_t wq6;
+wait_queue_head_t wq7;
+wait_queue_head_t wq8;
+wait_queue_head_t wq9;
 
+/*
 static DECLARE_WAIT_QUEUE_HEAD(wq0);
 static DECLARE_WAIT_QUEUE_HEAD(wq1);
 static DECLARE_WAIT_QUEUE_HEAD(wq2);
@@ -59,6 +71,7 @@ static DECLARE_WAIT_QUEUE_HEAD(wq6);
 static DECLARE_WAIT_QUEUE_HEAD(wq7);
 static DECLARE_WAIT_QUEUE_HEAD(wq8);
 static DECLARE_WAIT_QUEUE_HEAD(wq9);
+ */
 
 //static int flag = 0;
 // Need separate wait queues
@@ -126,7 +139,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
     printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
     printk(KERN_DEBUG "Writing Device ID %d\n", dev->id);
     
-    /*
+    
     switch (dev->id) {
         case 0:
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
@@ -161,7 +174,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
     }
-     */
+    
     //printk(KERN_DEBUG "process writes to dev id %d\n", dev.id);
     /*
     flag = 1;
@@ -183,7 +196,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   int my_data;
   int id;
   int timeout;
-  unsigned int secs;
+  unsigned int seconds;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
@@ -199,22 +212,15 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     printk(KERN_DEBUG "Reading Device ID %d\n", id);
     
     // Get user input and convert it to a 32 bit integer
-    user_input = (char *) vmalloc(4);
-    if (copy_from_user(user_input, buf, 4)) {
-        vfree(user_input);
-        return -EFAULT;
-    }
-    secs = *((unsigned int *) buf);
-    sscanf(user_input, "%d", &my_data);
+    seconds = *((unsigned int *) buf);
     printk(KERN_DEBUG "WRITE VAL %d\n", secs);
     vfree(user_input);
     
     // calculate timeout
     //msecs_to_jiffies
-    timeout = 10;
+    timeout = msecs_to_jiffies(1000 * seconds);
     
     // Check which device is being written to and print out device id
-    /*
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
@@ -249,7 +255,6 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
-     */
     /*
     if (atoi(buff) > 0) {
         // PUT TO SLEEP
