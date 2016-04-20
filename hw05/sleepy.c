@@ -142,7 +142,8 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
 {
   // declared variables
   char *user_input;
-  int my_data = 20;
+  int my_data;
+  int timeout;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
   ssize_t retval = 0;
@@ -156,14 +157,12 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
     printk(KERN_DEBUG "Device ID %d\n", dev->id);
     
-    //int input;
-    //input = 1;
-    //int timeout;
     user_input = (char *) vmalloc(4);
     if (copy_from_user(user_input, buf, 4)) {
         vfree(user_input);
         return -EFAULT;
     }
+    
     sscanf(user_input, "%d", &my_data);
     printk(KERN_DEBUG "WRITE VAL %d\n", my_data);
     vfree(user_input);
