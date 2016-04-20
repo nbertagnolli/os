@@ -120,6 +120,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
 	
   /* YOUR CODE HERE */
     printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
+    //printk(KERN_DEBUG "process writes to dev id %d\n", dev.id);
     /*
     flag = 1;
     wake_up_interruptible(&wq);
@@ -209,7 +210,7 @@ sleepy_construct_device(struct sleepy_dev *dev, int minor,
   /* Memory is to be allocated when the device is opened the first time */
   dev->data = NULL;
   printk(KERN_DEBUG "module id is %d", minor);
-  //dev.id = minor;    //  Add id to each device
+  dev.id = minor;    //  Add id to each device
   mutex_init(&dev->sleepy_mutex);
     
   cdev_init(&dev->cdev, &sleepy_fops);
