@@ -143,6 +143,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   // declared variables
   char *user_input;
   int my_data;
+  int id;
   //int timeout;
     
   struct sleepy_dev *dev = (struct sleepy_dev *)filp->private_data;
@@ -154,8 +155,9 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
   /* YOUR CODE HERE */
     // Modify dev with wait quque
     // __user is the input
+    id = dev->id;
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Device ID %d\n", dev->id);
+    printk(KERN_DEBUG "Device ID %d\n", id);
     
     // Get user input and convert it to a 32 bit integer
     user_input = (char *) vmalloc(4);
@@ -169,7 +171,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     vfree(user_input);
     
     // Check which device is being written to and print out device id
-    switch (dev->id) {
+    switch (id) {
         case 0:
             printk(KERN_DEBUG "HERE!! %d\n", dev->id);
             break;
