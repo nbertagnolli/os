@@ -123,7 +123,31 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
 	
   /* YOUR CODE HERE */
     printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Device ID %d\n", dev->id);
+    printk(KERN_DEBUG "Writing Device ID %d\n", dev->id);
+    
+    switch (dev->id) {
+        case 0:
+            printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
+            break;
     //printk(KERN_DEBUG "process writes to dev id %d\n", dev.id);
     /*
     flag = 1;
@@ -157,7 +181,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // __user is the input
     id = dev->id;
     printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Device ID %d\n", id);
+    printk(KERN_DEBUG "Reading Device ID %d\n", id);
     
     // Get user input and convert it to a 32 bit integer
     user_input = (char *) vmalloc(4);
@@ -173,26 +197,26 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Check which device is being written to and print out device id
     switch (id) {
         case 0:
-            printk(KERN_DEBUG "HERE!! %d\n", dev->id);
-            //break;
+            printk(KERN_DEBUG "Reading HERE!! %d\n", id);
+            break;
         case 1:
-            //break;
+            break;
         case 2:
-            //break;
+            break;
         case 3:
-            //break;
+            break;
         case 4:
-            //break;
+            break;
         case 5:
-            //break;
+            break;
         case 6:
-            //break;
+            break;
         case 7:
-            //break;
+            break;
         case 8:
-            //break;
+            break;
         case 9:
-            printk(KERN_DEBUG "HERE!! %d\n", dev->id);
+            printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
     /*

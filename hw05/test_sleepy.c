@@ -21,7 +21,7 @@ int main(void) {
   for (i = 0; i < 10; i++) {
     if (fork() == 0) {
       /* writing to device 0*/
-      fd = open("/dev/sleepy0", O_RDWR);
+      fd = open("/dev/sleepy9", O_RDWR);
       //assert(fd != -1);
 
       sleep_len = 10;
