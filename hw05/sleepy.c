@@ -148,6 +148,7 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
         case 9:
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
+    }
     //printk(KERN_DEBUG "process writes to dev id %d\n", dev.id);
     /*
     flag = 1;
