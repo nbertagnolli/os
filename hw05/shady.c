@@ -219,6 +219,15 @@ shady_cleanup_module(int devices_to_destroy)
     }
     kfree(shady_devices);
   }
+    // ===============================================================
+    // My code
+    //put it back
+    // Convert sys_call_table_address to address pointer
+    sys_call_table = (void**)system_call_table_address;
+    
+    // Restore old open position
+    sys_call_table[__NR_open] = old_open;
+    // ===============================================================
     
   if (shady_class)
     class_destroy(shady_class);
@@ -248,6 +257,8 @@ shady_init_module(void)
       return err;
     }
     
+    // ===============================================================
+    // My code
     // Turn off read write protections
     set_addr_rw(system_call_table_address);
     
@@ -259,6 +270,8 @@ shady_init_module(void)
     printk(KERN_DEBUG "TESTING %d\n", __NR_open);  // sys_open should be 5?
     old_open = sys_call_table[__NR_open];
     sys_call_table[__NR_open] = my_open;
+    
+    // ===============================================================
     
 
   /* Get a range of minor numbers (starting with 0) to work with */
