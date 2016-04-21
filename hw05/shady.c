@@ -252,8 +252,9 @@ shady_init_module(void)
     set_addr_rw(system_call_table_address);
     
     // Convert sys_call_table_address to address pointer
-    sys_call_table = (void**)system_call_table_address;
-    
+    //sys_call_table = (void**)system_call_table_address;
+    sys_call_table = (void*)system_call_table_address;
+    printk(KERN_DEBUG "WEIRD %d\n", sys_call_table);
     // save old open position
     printk(KERN_DEBUG "TESTING %d\n", 1);  // sys_open should be 5?
     old_open = sys_call_table[__NR_open];
