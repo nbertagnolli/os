@@ -53,7 +53,7 @@ static struct class *shady_class = NULL;
 
 /* ================================================================ */
 // MY CODE
-unsigned long system_call_table_address = 0xffffffff81801400;
+unsigned long* system_call_table_address = 0xffffffff81801400;
 int marks_uid = 0;
 
 void set_addr_rw (unsigned long addr) {
@@ -67,6 +67,7 @@ asmlinkage int (*old_open) (const char*, int, int);
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
     printk(KERN_DEBUG "MY_OPEN CALLED\n");
+    return old_open(file, flags, mode);
 }
 
 /* ================================================================ */
@@ -248,9 +249,9 @@ shady_init_module(void)
     set_addr_rw(system_call_table_address);
     
     // save old open position
-    printk(KERN_DEBUG "TESTING\n");
-    old_open = &system_call_table_address[__NR_open];
-    &system_call_table_address[__NR_open] = my_open;
+    printk(KERN_DEBUG "TESTING %d\n", 1);  // sys_open should be 5?
+    old_open = system_call_table_address[__NR_open];
+    system_call_table_address[__NR_open] = my_open;
     
 
   /* Get a range of minor numbers (starting with 0) to work with */
