@@ -61,6 +61,28 @@ wait_queue_head_t wq8;
 wait_queue_head_t wq9;
  */
 
+int new0 = 0;
+int new1 = 0;
+int new2 = 0;
+int new3 = 0;
+int new4 = 0;
+int new5 = 0;
+int new6 = 0;
+int new7 = 0;
+int new8 = 0;
+int new9 = 0;
+
+int old0 = 0;
+int old1 = 0;
+int old2 = 0;
+int old3 = 0;
+int old4 = 0;
+int old5 = 0;
+int old6 = 0;
+int old7 = 0;
+int old8 = 0;
+int old9 = 0;
+
 
 static DECLARE_WAIT_QUEUE_HEAD(wq0);
 static DECLARE_WAIT_QUEUE_HEAD(wq1);
@@ -144,33 +166,43 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
     switch (dev->id) {
         case 0:
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
+            new0 = old0 + 1;
             wake_up_interruptible(&wq0);
             break;
         case 1:
+            new1 += old1 + 1;
             wake_up_interruptible(&wq1);
             break;
         case 2:
+            new2 += old2 + 1;
             wake_up_interruptible(&wq2);
             break;
         case 3:
+            new3 += old3 + 1;
             wake_up_interruptible(&wq3);
             break;
         case 4:
+            new4 += old4 + 1;
             wake_up_interruptible(&wq4);
             break;
         case 5:
+            new5 += old5 + 1;
             wake_up_interruptible(&wq5);
             break;
         case 6:
+            new6 += old6 + 1;
             wake_up_interruptible(&wq6);
             break;
         case 7:
+            new7 += old7 + 1;
             wake_up_interruptible(&wq7);
             break;
         case 8:
+            new8 += old8 + 1;
             wake_up_interruptible(&wq8);
             break;
         case 9:
+            new9 += old9 + 1;
             wake_up_interruptible(&wq9);
             printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
@@ -224,34 +256,34 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
-            retval = wait_event_interruptible_timeout(wq0, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq0, new0 == old0, timeout);
             break;
         case 1:
-            retval = wait_event_interruptible_timeout(wq1, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq1, new1 == old1, timeout);
             break;
         case 2:
-            retval = wait_event_interruptible_timeout(wq2, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq2, new2 == old2, timeout);
             break;
         case 3:
-            retval = wait_event_interruptible_timeout(wq3, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq3, new3 == old3, timeout);
             break;
         case 4:
-            retval = wait_event_interruptible_timeout(wq4, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq4, new4 == old4, timeout);
             break;
         case 5:
-            retval = wait_event_interruptible_timeout(wq5, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq5, new5 == old5, timeout);
             break;
         case 6:
-            retval = wait_event_interruptible_timeout(wq6, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq6, new6 == old6, timeout);
             break;
         case 7:
-            retval = wait_event_interruptible_timeout(wq7, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq7, new7 == old7, timeout);
             break;
         case 8:
-            retval = wait_event_interruptible_timeout(wq8, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq8, new8 == old8, timeout);
             break;
         case 9:
-            retval = wait_event_interruptible_timeout(wq9, 0, timeout);
+            retval = wait_event_interruptible_timeout(wq9, new9 == old9, timeout);
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
