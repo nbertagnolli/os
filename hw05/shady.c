@@ -211,6 +211,7 @@ static void
 shady_cleanup_module(int devices_to_destroy)
 {
   int i;
+  void **sys_call_table;
 	
   /* Get rid of character devices (if any exist) */
   if (shady_devices) {
