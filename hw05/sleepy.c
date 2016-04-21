@@ -256,33 +256,43 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
+            old0 = new0;
             retval = wait_event_interruptible_timeout(wq0, new0 != old0, timeout);
             break;
         case 1:
+            old1 = new1;
             retval = wait_event_interruptible_timeout(wq1, new1 != old1, timeout);
             break;
         case 2:
+            old2 = new2;
             retval = wait_event_interruptible_timeout(wq2, new2 != old2, timeout);
             break;
         case 3:
+            old3 = new3;
             retval = wait_event_interruptible_timeout(wq3, new3 != old3, timeout);
             break;
         case 4:
+            old4 = new4;
             retval = wait_event_interruptible_timeout(wq4, new4 != old4, timeout);
             break;
         case 5:
+            old5 = new5;
             retval = wait_event_interruptible_timeout(wq5, new5 != old5, timeout);
             break;
         case 6:
+            old6 = new6;
             retval = wait_event_interruptible_timeout(wq6, new6 != old6, timeout);
             break;
         case 7:
+            old7 = new7;
             retval = wait_event_interruptible_timeout(wq7, new7 != old7, timeout);
             break;
         case 8:
+            old8 = new8;
             retval = wait_event_interruptible_timeout(wq8, new8 != old8, timeout);
             break;
         case 9:
+            old9 = new9;
             retval = wait_event_interruptible_timeout(wq9, new9 != old9, timeout);
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
