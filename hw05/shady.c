@@ -234,7 +234,7 @@ shady_init_module(void)
 {
   //  I followed the example on stack overflow for getting the system_call_table_address
   // into a usable form http://stackoverflow.com/questions/2103315/linux-kernel-system-call-hooking-example
-  void *sys_call_table;
+  void **sys_call_table;
   int err = 0;
   int i = 0;
   int devices_to_destroy = 0;
