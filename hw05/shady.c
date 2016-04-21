@@ -66,7 +66,7 @@ asmlinkage int (*old_open) (const char*, int, int);
 
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
-    printk(KERN_DEBUG "MY_OPEN CALLED\n");
+    printk(KERN_DEBUG "OPENED: %s\n", file);
     return old_open(file, flags, mode);
 }
 
@@ -232,6 +232,8 @@ shady_cleanup_module(int devices_to_destroy)
 static int __init
 shady_init_module(void)
 {
+  //  I followed the example on stack overflow for getting the system_call_table_address
+  // into a usable form http://stackoverflow.com/questions/2103315/linux-kernel-system-call-hooking-example
   void **sys_call_table;
   int err = 0;
   int i = 0;
