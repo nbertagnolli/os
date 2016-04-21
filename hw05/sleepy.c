@@ -48,6 +48,7 @@ MODULE_LICENSE("GPL");
 // Note to grader.  Most of this code is copied from chapter 6/7 of linux
 // Device Drivers suggested in the assignment.
 //wait_queue_head_t
+/*
 wait_queue_head_t wq0;
 wait_queue_head_t wq1;
 wait_queue_head_t wq2;
@@ -58,8 +59,9 @@ wait_queue_head_t wq6;
 wait_queue_head_t wq7;
 wait_queue_head_t wq8;
 wait_queue_head_t wq9;
+ */
 
-/*
+
 static DECLARE_WAIT_QUEUE_HEAD(wq0);
 static DECLARE_WAIT_QUEUE_HEAD(wq1);
 static DECLARE_WAIT_QUEUE_HEAD(wq2);
@@ -70,7 +72,7 @@ static DECLARE_WAIT_QUEUE_HEAD(wq6);
 static DECLARE_WAIT_QUEUE_HEAD(wq7);
 static DECLARE_WAIT_QUEUE_HEAD(wq8);
 static DECLARE_WAIT_QUEUE_HEAD(wq9);
- */
+
 
 //static int flag = 0;
 // Need separate wait queues
