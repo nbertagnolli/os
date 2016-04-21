@@ -53,8 +53,7 @@ static struct class *shady_class = NULL;
 
 /* ================================================================ */
 // MY CODE
-// sys_call_table?
-unsigned long system_call_table_address = 0xffffffff81027470;
+unsigned long system_call_table_address = 0xffffffff81801400;
 int marks_uid = 0;
 
 void set_addr_rw (unsigned long addr) {
@@ -67,7 +66,7 @@ asmlinkage int (*old_open) (const char*, int, int);
 
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
-    /* YOUR CODE HERE */
+    printk(KERN_DEBUG "MY_OPEN CALLED\n");
 }
 
 /* ================================================================ */
@@ -247,6 +246,11 @@ shady_init_module(void)
     
     // Turn off read write protections
     set_addr_rw(system_call_table_address);
+    
+    // save old open position
+    old_open = sys_call_table_address[__NR_open];
+    sys_call_table_address[__NR_open] = my_open;
+    
 
   /* Get a range of minor numbers (starting with 0) to work with */
   err = alloc_chrdev_region(&dev, 0, shady_ndevices, SHADY_DEVICE_NAME);
