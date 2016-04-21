@@ -256,34 +256,34 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     switch (id) {
         case 0:
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
-            retval = wait_event_interruptible_timeout(wq0, new0 == old0, timeout);
+            retval = wait_event_interruptible_timeout(wq0, new0 != old0, timeout);
             break;
         case 1:
-            retval = wait_event_interruptible_timeout(wq1, new1 == old1, timeout);
+            retval = wait_event_interruptible_timeout(wq1, new1 != old1, timeout);
             break;
         case 2:
-            retval = wait_event_interruptible_timeout(wq2, new2 == old2, timeout);
+            retval = wait_event_interruptible_timeout(wq2, new2 != old2, timeout);
             break;
         case 3:
-            retval = wait_event_interruptible_timeout(wq3, new3 == old3, timeout);
+            retval = wait_event_interruptible_timeout(wq3, new3 != old3, timeout);
             break;
         case 4:
-            retval = wait_event_interruptible_timeout(wq4, new4 == old4, timeout);
+            retval = wait_event_interruptible_timeout(wq4, new4 != old4, timeout);
             break;
         case 5:
-            retval = wait_event_interruptible_timeout(wq5, new5 == old5, timeout);
+            retval = wait_event_interruptible_timeout(wq5, new5 != old5, timeout);
             break;
         case 6:
-            retval = wait_event_interruptible_timeout(wq6, new6 == old6, timeout);
+            retval = wait_event_interruptible_timeout(wq6, new6 != old6, timeout);
             break;
         case 7:
-            retval = wait_event_interruptible_timeout(wq7, new7 == old7, timeout);
+            retval = wait_event_interruptible_timeout(wq7, new7 != old7, timeout);
             break;
         case 8:
-            retval = wait_event_interruptible_timeout(wq8, new8 == old8, timeout);
+            retval = wait_event_interruptible_timeout(wq8, new8 != old8, timeout);
             break;
         case 9:
-            retval = wait_event_interruptible_timeout(wq9, new9 == old9, timeout);
+            retval = wait_event_interruptible_timeout(wq9, new9 != old9, timeout);
             printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
