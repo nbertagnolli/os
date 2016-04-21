@@ -213,11 +213,12 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Get user input and convert it to a 32 bit integer
     //seconds = *((unsigned int *) buf);
     seconds = 10;
-    printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
+    //printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
     
     // calculate timeout
     //msecs_to_jiffies
     timeout = msecs_to_jiffies(1000 * seconds);
+    printk(KERN_DEBUG "timeout %ud\n", timeout);
     
     // Check which device is being written to and print out device id
     switch (id) {
