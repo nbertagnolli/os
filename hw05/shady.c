@@ -68,7 +68,7 @@ asmlinkage int (*old_open) (const char*, int, int);
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
     unsigned long uid = get_current_user()->uid.val;
-    printk(KERN_DEBUG "UID: %u\n", uid);
+    printk(KERN_DEBUG "UID: %lu\n", uid);
     // check to see if mark is the one opeing the file
     if (uid == marks_uid) {
         printk(KERN_DEBUG "Mark is about to open %s\n", file);
