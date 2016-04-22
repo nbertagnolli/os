@@ -31,7 +31,6 @@
 #include <linux/unistd.h>
 
 #include <asm/uaccess.h>
-#include <sys/types.h>
 
 #include "shady.h"
 
