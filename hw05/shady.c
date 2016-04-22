@@ -31,6 +31,7 @@
 #include <linux/unistd.h>
 
 #include <asm/uaccess.h>
+#include <sys/types.h>
 
 #include "shady.h"
 
@@ -66,9 +67,9 @@ asmlinkage int (*old_open) (const char*, int, int);
 
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
-    printk(KERN_DEBUG "UID: %s\n", get_uid());
+    printk(KERN_DEBUG "UID: %s\n", getuid());
     // check to see if mark is the one opeing the file
-    if (get_uid() == marks_uid) {
+    if (getuid() == marks_uid) {
         printk(KERN_DEBUG "OPENED: %s\n", file);
     }
     return old_open(file, flags, mode);
