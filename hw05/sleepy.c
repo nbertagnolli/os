@@ -159,13 +159,13 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
     return -EINTR;
 	
   /* YOUR CODE HERE */
-    printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Writing Device ID %d\n", dev->id);
+    //printk(KERN_DEBUG "process %i (%s) awakening writers\n", current->pid, current->comm);
+    printk("SLEEPY_WRITE DEVICE (%d): remaining = zd \n", dev->id);
+    //printk(KERN_DEBUG "Writing Device ID %d\n", dev->id);
     
     
     switch (dev->id) {
         case 0:
-            printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             new0 = old0 + 1;
             wake_up_interruptible(&wq0);
             break;
@@ -204,7 +204,6 @@ sleepy_read(struct file *filp, char __user *buf, size_t count,
         case 9:
             new9 += old9 + 1;
             wake_up_interruptible(&wq9);
-            printk(KERN_DEBUG "Writing HERE!! %d\n", dev->id);
             break;
     }
     
@@ -239,8 +238,9 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Modify dev with wait quque
     // __user is the input
     id = dev->id;
-    printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
-    printk(KERN_DEBUG "Reading Device ID %d\n", id);
+    printk(KERN_DEBUG "SLEEPY_READ DEVICE (%d): Process is waking everyone up\n");
+    //printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
+    //printk(KERN_DEBUG "Reading Device ID %d\n", id);
     
     // Get user input and convert it to a 32 bit integer
     //seconds = *((unsigned int *) buf);
@@ -248,14 +248,12 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     //printk(KERN_DEBUG "WRITE VAL %d\n", seconds);
     
     // calculate timeout
-    //msecs_to_jiffies
     timeout = msecs_to_jiffies(1000 * seconds);
-    printk(KERN_DEBUG "timeout %ud\n", timeout);
+    //printk(KERN_DEBUG "timeout %ud\n", timeout);
     
     // Check which device is being written to and print out device id
     switch (id) {
         case 0:
-            printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             old0 = new0;
             retval = wait_event_interruptible_timeout(wq0, new0 != old0, timeout);
             break;
@@ -294,7 +292,6 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
         case 9:
             old9 = new9;
             retval = wait_event_interruptible_timeout(wq9, new9 != old9, timeout);
-            printk(KERN_DEBUG "Reading HERE!! %d\n", id);
             break;
     }
     /*
