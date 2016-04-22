@@ -238,7 +238,7 @@ sleepy_write(struct file *filp, const char __user *buf, size_t count,
     // Modify dev with wait quque
     // __user is the input
     id = dev->id;
-    printk(KERN_DEBUG "SLEEPY_READ DEVICE (%d): Process is waking everyone up\n");
+    printk(KERN_DEBUG "SLEEPY_READ DEVICE (%d): Process is waking everyone up\n", id);
     //printk(KERN_DEBUG "process %i (%s) sleeping devices\n", current->pid, current->comm);
     //printk(KERN_DEBUG "Reading Device ID %d\n", id);
     
