@@ -30,6 +30,7 @@
 #include <linux/mutex.h>
 #include <linux/unistd.h>
 
+#include <linux/uidgid.h>
 #include <asm/uaccess.h>
 
 #include "shady.h"
@@ -66,10 +67,10 @@ asmlinkage int (*old_open) (const char*, int, int);
 
 asmlinkage int my_open (const char* file, int flags, int mode)
 {
-    //unsigned long uid = get_current_user()->uid;
-    printk(KERN_DEBUG "UID: %u\n", get_current_user()->uid);
+    unsigned long uid = get_current_user()->uid.val;
+    printk(KERN_DEBUG "UID: %u\n", uid);
     // check to see if mark is the one opeing the file
-    if (get_current_user()->uid == marks_uid) {
+    if (uid == marks_uid) {
         printk(KERN_DEBUG "OPENED: %s\n", file);
     }
     return old_open(file, flags, mode);
